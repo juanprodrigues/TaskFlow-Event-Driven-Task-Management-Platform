@@ -1,0 +1,13 @@
+Instalar dependencias principales:
+npm install express dotenv cors helmet morgan pino pino-http zod
+Dependencias de desarrollo:
+npm install -D typescript tsx @types/node @types/express @types/cors @types/morgan
+Inicializar TypeScript:
+npx tsc --init
+
+
+"scripts": {
+  "dev": "tsx watch src/server.ts",
+  "build": "tsc",
+  "start": "node dist/server.js"
+}
