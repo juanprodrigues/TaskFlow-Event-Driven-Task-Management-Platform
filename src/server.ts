@@ -1,6 +1,9 @@
 import { app } from "./app";
-import { env } from "./shared/config/env";
+import { serverConfig } from "@shared/config";
+import { logger } from "@shared/logger/logger";
 
-app.listen(env.PORT, () => {
-    console.log(`Server running on port ${env.PORT}`);
+app.listen(serverConfig.port, () => {
+    logger.info(
+        `Server running at http://${serverConfig.host}:${serverConfig.port}`
+    );
 });

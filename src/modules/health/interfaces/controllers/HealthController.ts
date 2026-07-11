@@ -3,13 +3,15 @@ import { GetHealthUseCase } from "../../application/usecases/GetHealthUseCase";
 
 export class HealthController {
 
-    async handle(req: Request, res: Response): Promise<Response> {
+    constructor(
+        private readonly getHealthUseCase: GetHealthUseCase
+    ) {}
 
-        const useCase = new GetHealthUseCase();
+    async handle(req: Request, res: Response) {
 
-        const result = useCase.execute();
+        const response = this.getHealthUseCase.execute();
 
-        return res.status(200).json(result);
+        return res.json(response);
 
     }
 

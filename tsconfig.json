@@ -1,27 +1,22 @@
-```json
 {
   "compilerOptions": {
     "target": "ES2022",
     "module": "CommonJS",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
 
     "rootDir": "./src",
     "outDir": "./dist",
 
-    "strict": true,
+    "baseUrl": "./src",
+
+    "paths": {
+      "@/*": ["*"],
+      "@shared/*": ["shared/*"],
+      "@modules/*": ["modules/*"]
+    },
+
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-
-    "sourceMap": true,
-    "declaration": false,
-
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-
-    "types": ["node"]
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+    "strict": true,
+    "skipLibCheck": true
+  }
 }
-```
