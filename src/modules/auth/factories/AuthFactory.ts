@@ -6,6 +6,8 @@ import { RegisterUseCase } from "../application/usecases/RegisterUseCase";
 import { LoginUseCase } from "../application/usecases/LoginUseCase";
 import { PrismaSessionRepository } from "../infrastructure/repositories/PrismaSessionRepository";
 import { RefreshTokenUseCase } from "../application/usecases/RefreshTokenUseCase";
+import { LogoutAllUseCase } from "../application/usecases/LogoutAllUseCase";
+import { LogoutUseCase } from "../application/usecases/LogoutUseCase";
 
 export class AuthFactory {
   static createController() {
@@ -16,6 +18,9 @@ export class AuthFactory {
     const tokenService = new JwtTokenService();
 
     const sessionRepository = new PrismaSessionRepository();
+    
+    // const logoutUseCase = new LogoutUseCase(sessionRepository);
+    // const logoutAllUseCase = new LogoutAllUseCase(sessionRepository);
 
     return new AuthController(
       new RegisterUseCase(userRepository, hashService),
@@ -27,6 +32,8 @@ export class AuthFactory {
         tokenService,
       ),
       new RefreshTokenUseCase(userRepository, sessionRepository, tokenService),
+      new LogoutUseCase(sessionRepository),
+      new LogoutAllUseCase(sessionRepository)
     );
   }
 }
