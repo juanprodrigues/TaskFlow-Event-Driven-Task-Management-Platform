@@ -4,6 +4,7 @@ import { JwtTokenService } from "../domain/services/JwtTokenService";
 import { AuthController } from "../interfaces/controllers/AuthController";
 import { RegisterUseCase } from "../application/usecases/RegisterUseCase";
 import { LoginUseCase } from "../application/usecases/LoginUseCase";
+import { PrismaSessionRepository } from "../infrastructure/repositories/PrismaSessionRepository";
 
 export class AuthFactory {
 
@@ -14,6 +15,8 @@ export class AuthFactory {
         const hashService = new BcryptHashService();
 
         const tokenService = new JwtTokenService();
+        
+        const sessionRepository = new PrismaSessionRepository();
 
         return new AuthController(
 
@@ -24,8 +27,10 @@ export class AuthFactory {
 
             new LoginUseCase(
                 repository,
+                sessionRepository,
                 hashService,
                 tokenService
+                
             )
 
         );

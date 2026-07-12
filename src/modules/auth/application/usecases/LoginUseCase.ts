@@ -2,51 +2,60 @@ import { UnauthorizedError } from "../../../../shared/errors";
 
 import { UserRepository } from "../../../users/domain/repositories/UserRepository";
 
-import { LoginDto } from "../dto/LoginDto";
+import { SessionRepository } from "../../domain/repositories/SessionRepository";
 
 import { HashService } from "../../domain/services/HashService";
-
 import { TokenService } from "../../domain/services/TokenService";
 
+import { LoginDto } from "../dto/LoginDto";
 import { AuthResponseDto } from "../dto/AuthResponseDto";
+
+import { Session } from "../../domain/entities/Session";
 
 export class LoginUseCase {
 
     constructor(
-        private readonly repository: UserRepository,
+        private readonly userRepository: UserRepository,
+        private readonly sessionRepository: SessionRepository,
         private readonly hashService: HashService,
         private readonly tokenService: TokenService
     ) {}
 
-    async execute(
-        dto: LoginDto
-    ): Promise<AuthResponseDto> {
+    async execute(dto: LoginDto): Promise<AuthResponseDto> {
 
-        const user =
-            await this.repository.findByEmail(dto.email);
+        const user = await this.userRepository.findByEmail(dto.email);
 
         if (!user) {
             throw new UnauthorizedError("Invalid credentials");
         }
 
-        const validPassword =
-            await this.hashService.compare(
-                dto.password,
-                user.password
-            );
+        const passwordMatches = await this.hashService.compare(
+            dto.password,
+            user.password
+        );
 
-        if (!validPassword) {
+        if (!passwordMatches) {
             throw new UnauthorizedError("Invalid credentials");
         }
 
+        const accessToken = this.tokenService.generateAccessToken({
+            sub: user.id,
+            email: user.email
+        });
+        const refreshToken = this.tokenService.generateRefreshToken(user.id);
+
+        const session = Session.create(
+            refreshToken,
+            user.id,
+            this.tokenService.getRefreshTokenExpiration()
+        );
+
+        await this.sessionRepository.create(session);
+
         return {
-            accessToken:
-                this.tokenService.generateAccessToken(user.id),
-
-            refreshToken:
-                this.tokenService.generateRefreshToken(user.id)
+            accessToken,
+            refreshToken
         };
-
     }
 
 }

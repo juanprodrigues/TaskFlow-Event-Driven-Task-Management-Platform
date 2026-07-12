@@ -24,4 +24,31 @@ export class Session {
   isActive(): boolean {
     return !this.revoked && !this.isExpired();
   }
+  static create(
+
+    refreshToken: string,
+
+    userId: string,
+
+    expiresAt: Date
+
+): Session {
+
+    return new Session(
+
+        crypto.randomUUID(),
+
+        refreshToken,
+
+        userId,
+
+        expiresAt,
+
+        false,
+
+        new Date()
+
+    );
+
+}
 }

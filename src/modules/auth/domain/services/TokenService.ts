@@ -1,9 +1,15 @@
+import { TokenPayload } from "../types/TokenPayload";
+
 export interface TokenService {
 
-    generateAccessToken(userId: string): string;
-
+    generateAccessToken(payload: TokenPayload): string;
+    
     generateRefreshToken(userId: string): string;
 
-    verify(token: string): unknown;
+    verifyAccessToken(token: string): unknown;
+
+    verifyRefreshToken(token: string): unknown;
+
+    getRefreshTokenExpiration(): Date;
 
 }
