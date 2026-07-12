@@ -18,150 +18,102 @@ import { ApiResponse } from "@/shared/responses/ApiResponse";
 
 // FindUserByIdController.ts
 export class UserController {
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly findUserByIdUseCase: FindUserByIdUseCase,
+    private readonly listUsersUseCase: ListUsersUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
+    private readonly deleteUserUseCase: DeleteUserUseCase,
+  ) {}
 
-    constructor(
-        private readonly createUserUseCase: CreateUserUseCase,
-        private readonly findUserByIdUseCase: FindUserByIdUseCase,
-        private readonly listUsersUseCase: ListUsersUseCase,
-        private readonly updateUserUseCase: UpdateUserUseCase,
-        private readonly deleteUserUseCase: DeleteUserUseCase
-    ) {}
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await this.createUserUseCase.execute(req.body);
 
-    async create(req: Request, res: Response, next: NextFunction) {
-
-        try {
-
-            const user = await this.createUserUseCase.execute(req.body);
-
-            return res.status(201).json(
-                ApiResponse.success(
-                    user,
-                    "User created successfully"
-                )
-            );
-
-        } catch (error) {
-
-            next(error);
-
-        }
-
+      return res
+        .status(201)
+        .json(ApiResponse.success(user, "User created successfully"));
+    } catch (error) {
+      next(error);
     }
+  }
 
-    async findById(req: Request, res: Response, next: NextFunction) {
+  async findById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
 
-        try {
-            const { id } = req.params;
+      if (Array.isArray(id)) {
+        throw new Error("El parámetro 'id' es inválido.");
+      }
 
-            if (Array.isArray(id)) {
-                throw new Error("El parámetro 'id' es inválido.");
-            }
+      const user = await this.findUserByIdUseCase.execute(id);
 
-            const user = await this.findUserByIdUseCase.execute(id);
+      return res.json(
+        ApiResponse.success(
+          user,
 
-            return res.json(
-
-                ApiResponse.success(
-
-                    user,
-
-                    "User retrieved successfully"
-
-                )
-
-            );
-        } catch (error) {
-            next(error);
-
-        }
-
+          "User retrieved successfully",
+        ),
+      );
+    } catch (error) {
+      next(error);
     }
+  }
 
-    async list(req: Request, res: Response, next: NextFunction) {
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await this.listUsersUseCase.execute();
 
-        try {
+      return res.json(
+        ApiResponse.success(
+          users,
 
-            const users = await this.listUsersUseCase.execute();
-
-            return res.json(
-
-                ApiResponse.success(
-
-                    users,
-
-                    "Users retrieved successfully"
-
-                )
-
-            );
-
-        } catch (error) {
-
-            next(error);
-
-        }
-
+          "Users retrieved successfully",
+        ),
+      );
+    } catch (error) {
+      next(error);
     }
+  }
 
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
 
-    
-    async update(req: Request, res: Response, next: NextFunction) {
+      if (typeof id !== "string") {
+        return next(new Error("El parámetro 'id' es inválido."));
+      }
 
-        try {
-            const { id } = req.params;
+      const user = await this.updateUserUseCase.execute(id, req.body);
 
-            if (typeof id !== "string") {
-            return next(new Error("El parámetro 'id' es inválido."));
-            }
+      return res.json(
+        ApiResponse.success(
+          user,
 
-            const user = await this.updateUserUseCase.execute(id, req.body);
-
-            return res.json(
-
-                ApiResponse.success(
-
-                    user,
-
-                    "User updated successfully"
-
-                )
-
-            );
-
-        } catch (error) {
-
-            next(error);
-
-        }
-
+          "User updated successfully",
+        ),
+      );
+    } catch (error) {
+      next(error);
     }
+  }
 
-    async delete(req: Request, res: Response, next: NextFunction) {
+  async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
 
-        try {
-            const { id } = req.params;
+      if (Array.isArray(id)) {
+        throw new Error("El parámetro 'id' es inválido.");
+      }
+      return res.json(
+        ApiResponse.success(
+          null,
 
-            if (Array.isArray(id)) {
-                throw new Error("El parámetro 'id' es inválido.");
-            }
-            return res.json(
-
-                ApiResponse.success(
-
-                    null,
-
-                    "User deleted successfully"
-
-                )
-
-            );
-
-        } catch (error) {
-
-            next(error);
-
-        }
-
+          "User deleted successfully",
+        ),
+      );
+    } catch (error) {
+      next(error);
     }
-
+  }
 }
