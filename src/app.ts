@@ -34,7 +34,6 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec)
 );
-console.log(JSON.stringify(swaggerSpec, null, 2));
 app.use(routes);
 
 app.use(errorHandler);

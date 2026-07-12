@@ -5,36 +5,28 @@ import { AuthController } from "../interfaces/controllers/AuthController";
 import { RegisterUseCase } from "../application/usecases/RegisterUseCase";
 import { LoginUseCase } from "../application/usecases/LoginUseCase";
 import { PrismaSessionRepository } from "../infrastructure/repositories/PrismaSessionRepository";
+import { RefreshTokenUseCase } from "../application/usecases/RefreshTokenUseCase";
 
 export class AuthFactory {
+  static createController() {
+    const userRepository = new PrismaUserRepository();
 
-    static createController() {
+    const hashService = new BcryptHashService();
 
-        const repository = new PrismaUserRepository();
+    const tokenService = new JwtTokenService();
 
-        const hashService = new BcryptHashService();
+    const sessionRepository = new PrismaSessionRepository();
 
-        const tokenService = new JwtTokenService();
-        
-        const sessionRepository = new PrismaSessionRepository();
+    return new AuthController(
+      new RegisterUseCase(userRepository, hashService),
 
-        return new AuthController(
-
-            new RegisterUseCase(
-                repository,
-                hashService
-            ),
-
-            new LoginUseCase(
-                repository,
-                sessionRepository,
-                hashService,
-                tokenService
-                
-            )
-
-        );
-
-    }
-
+      new LoginUseCase(
+        userRepository,
+        sessionRepository,
+        hashService,
+        tokenService,
+      ),
+      new RefreshTokenUseCase(userRepository, sessionRepository, tokenService),
+    );
+  }
 }
