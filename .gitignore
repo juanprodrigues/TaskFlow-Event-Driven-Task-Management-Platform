@@ -64,3 +64,5 @@ pnpm-lock.yaml
 .yarn/build-state.yml
 .yarn/install-state.gz
 ```
+
+/src/generated/prisma
