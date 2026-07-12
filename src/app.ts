@@ -24,7 +24,7 @@ const swaggerOptions = {
       description: "Documentación de la API"
     },
   },
-  apis: ["./src/**/*.ts","./modules/**/*.ts"],
+  apis: ["./src/**/*.ts","./src/shared/routes.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
@@ -34,7 +34,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec)
 );
-
+console.log(JSON.stringify(swaggerSpec, null, 2));
 app.use(routes);
 
 app.use(errorHandler);

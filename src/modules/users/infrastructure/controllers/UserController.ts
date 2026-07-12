@@ -45,13 +45,16 @@ export class UserController {
     async findById(req: Request, res: Response, next: NextFunction) {
 
         try {
+            const { id } = req.params;
 
-            const user = await this.findUserByIdUseCase.execute(req.params.id);
+            if (Array.isArray(id)) {
+                throw new Error("El parámetro 'id' es inválido.");
+            }
+
+            const user = await this.findUserByIdUseCase.execute(id);
 
             return res.json(user);
-
         } catch (error) {
-
             next(error);
 
         }
@@ -74,12 +77,19 @@ export class UserController {
 
     }
 
+
+    
     async update(req: Request, res: Response, next: NextFunction) {
 
         try {
+            const { id } = req.params;
+
+            if (typeof id !== "string") {
+            return next(new Error("El parámetro 'id' es inválido."));
+            }
 
             const user = await this.updateUserUseCase.execute(
-                req.params.id,
+                id,
                 req.body
             );
 
@@ -96,8 +106,12 @@ export class UserController {
     async delete(req: Request, res: Response, next: NextFunction) {
 
         try {
+            const { id } = req.params;
 
-            await this.deleteUserUseCase.execute(req.params.id);
+            if (Array.isArray(id)) {
+                throw new Error("El parámetro 'id' es inválido.");
+            }
+            await this.deleteUserUseCase.execute( id);
 
             return res.status(204).send();
 
