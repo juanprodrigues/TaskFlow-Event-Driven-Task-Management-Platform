@@ -5,6 +5,7 @@ import { FindUserByIdUseCase } from "../../application/usecases/FindUserByIdUseC
 import { ListUsersUseCase } from "../../application/usecases/ListUsersUseCase";
 import { UpdateUserUseCase } from "../../application/usecases/UpdateUserUseCase";
 import { DeleteUserUseCase } from "../../application/usecases/DeleteUserUseCase";
+import { ApiResponse } from "@/shared/responses/ApiResponse";
 // lo idea es controllers
 
 // CreateUserController.ts
@@ -32,7 +33,12 @@ export class UserController {
 
             const user = await this.createUserUseCase.execute(req.body);
 
-            return res.status(201).json(user);
+            return res.status(201).json(
+                ApiResponse.success(
+                    user,
+                    "User created successfully"
+                )
+            );
 
         } catch (error) {
 
@@ -53,7 +59,17 @@ export class UserController {
 
             const user = await this.findUserByIdUseCase.execute(id);
 
-            return res.json(user);
+            return res.json(
+
+                ApiResponse.success(
+
+                    user,
+
+                    "User retrieved successfully"
+
+                )
+
+            );
         } catch (error) {
             next(error);
 
@@ -67,7 +83,17 @@ export class UserController {
 
             const users = await this.listUsersUseCase.execute();
 
-            return res.json(users);
+            return res.json(
+
+                ApiResponse.success(
+
+                    users,
+
+                    "Users retrieved successfully"
+
+                )
+
+            );
 
         } catch (error) {
 
@@ -88,12 +114,19 @@ export class UserController {
             return next(new Error("El parámetro 'id' es inválido."));
             }
 
-            const user = await this.updateUserUseCase.execute(
-                id,
-                req.body
-            );
+            const user = await this.updateUserUseCase.execute(id, req.body);
 
-            return res.json(user);
+            return res.json(
+
+                ApiResponse.success(
+
+                    user,
+
+                    "User updated successfully"
+
+                )
+
+            );
 
         } catch (error) {
 
@@ -111,9 +144,17 @@ export class UserController {
             if (Array.isArray(id)) {
                 throw new Error("El parámetro 'id' es inválido.");
             }
-            await this.deleteUserUseCase.execute( id);
+            return res.json(
 
-            return res.status(204).send();
+                ApiResponse.success(
+
+                    null,
+
+                    "User deleted successfully"
+
+                )
+
+            );
 
         } catch (error) {
 
