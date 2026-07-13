@@ -1,54 +1,54 @@
 # TaskFlow API
 
-> A production-inspired backend built with **Node.js**, **TypeScript**, **Express**, **Hexagonal Architecture**, **Domain-Driven Design (DDD)**, **PostgreSQL**, **Prisma**, **JWT Authentication**, **Refresh Token Rotation**, and **Dependency Injection**.
+> Un backend inspirado en entornos de producción construido con **Node.js**, **TypeScript**, **Express**, **Arquitectura Hexagonal**, **Domain-Driven Design (DDD)**, **PostgreSQL**, **Prisma**, **Autenticación JWT**, **Rotación de Refresh Tokens** e **Inyección de Dependencias**.
 
-TaskFlow API is more than a CRUD application. It is a backend project designed to simulate the architecture and engineering practices used in modern software companies.
+TaskFlow API es más que una aplicación CRUD. Es un proyecto backend diseñado para simular la arquitectura y las prácticas de ingeniería utilizadas en empresas modernas de software.
 
-The goal of this project is to demonstrate backend engineering skills by focusing on:
+El objetivo de este proyecto es demostrar habilidades de ingeniería backend enfocándose en:
 
-* Clean and maintainable architecture
-* Scalability
-* Security
-* Testability
-* Separation of concerns
-* Enterprise-level authentication
-* Event-driven ready design
-
----
-
-# Table of Contents
-
-* [Project Vision](#project-vision)
-* [Current Features](#current-features)
-* [Technology Stack](#technology-stack)
-* [Architecture](#architecture)
-* [Project Structure](#project-structure)
-* [Authentication Flow](#authentication-flow)
-* [Why This Architecture?](#why-this-architecture)
-* [Getting Started](#getting-started)
-* [Environment Variables](#environment-variables)
-* [Prisma Commands](#prisma-commands)
-* [Development Roadmap](#development-roadmap)
-* [Documentation](#documentation)
+* Arquitectura limpia y mantenible
+* Escalabilidad
+* Seguridad
+* Facilidad de pruebas
+* Separación de responsabilidades
+* Autenticación de nivel empresarial
+* Diseño preparado para arquitectura basada en eventos
 
 ---
 
-# Project Vision
+# Tabla de Contenidos
 
-Instead of building another simple REST API, this project focuses on demonstrating how real-world backend systems are designed.
+* [Visión del Proyecto](#visión-del-proyecto)
+* [Características Actuales](#características-actuales)
+* [Stack Tecnológico](#stack-tecnológico)
+* [Arquitectura](#arquitectura)
+* [Estructura del Proyecto](#estructura-del-proyecto)
+* [Flujo de Autenticación](#flujo-de-autenticación)
+* [¿Por qué esta Arquitectura?](#por-qué-esta-arquitectura)
+* [Primeros Pasos](#primeros-pasos)
+* [Variables de Entorno](#variables-de-entorno)
+* [Comandos de Prisma](#comandos-de-prisma)
+* [Hoja de Ruta de Desarrollo](#hoja-de-ruta-de-desarrollo)
+* [Documentación](#documentación)
 
-Throughout the project we progressively introduced architectural improvements instead of implementing everything from the beginning.
+---
 
-Each improvement solves a real problem.
+# Visión del Proyecto
 
-For example:
+En lugar de construir otra API REST simple, este proyecto se enfoca en demostrar cómo se diseñan sistemas backend reales.
+
+Durante el desarrollo del proyecto se fueron introduciendo mejoras arquitectónicas progresivamente en lugar de implementar todo desde el inicio.
+
+Cada mejora resuelve un problema real.
+
+Por ejemplo:
 
 ```text
-Simple Login
+Login Simple
 
 ↓
 
-JWT Authentication
+Autenticación JWT
 
 ↓
 
@@ -56,143 +56,143 @@ Refresh Tokens
 
 ↓
 
-Persistent Sessions
+Sesiones Persistentes
 
 ↓
 
-Refresh Token Rotation
+Rotación de Refresh Tokens
 
 ↓
 
-Dependency Injection
+Inyección de Dependencias
 
 ↓
 
-Role-Based Authorization
+Autorización Basada en Roles
 
 ↓
 
-(Event Driven Architecture)
+(Arquitectura Basada en Eventos)
 ```
 
-This evolutionary approach keeps the architecture understandable while allowing the project to scale.
+Este enfoque evolutivo mantiene la arquitectura comprensible mientras permite que el proyecto pueda escalar.
 
 ---
 
-# Current Features
+# Características Actuales
 
-### Authentication
+## Autenticación
 
-* User registration
-* User login
-* JWT Access Tokens
+* Registro de usuarios
+* Inicio de sesión
+* Tokens de acceso JWT
 * Refresh Tokens
-* Refresh Token Rotation
-* Logout
-* Logout All Sessions
+* Rotación de Refresh Tokens
+* Cierre de sesión
+* Cierre de todas las sesiones
 
 ---
 
-### Authorization
+## Autorización
 
-* Role-Based Access Control (RBAC)
-* User Roles
-* Authorization middleware
+* Control de acceso basado en roles (RBAC)
+* Roles de usuario
+* Middleware de autorización
 
 ---
 
-### Backend
+## Backend
 
 * Express 5
 * TypeScript
-* Modular Architecture
-* Hexagonal Architecture
-* Domain Driven Design
-* Dependency Injection (TSyringe)
+* Arquitectura modular
+* Arquitectura Hexagonal
+* Domain Driven Design (DDD)
+* Inyección de Dependencias (TSyringe)
 
 ---
 
-### Database
+## Base de Datos
 
 * PostgreSQL
 * Prisma ORM
-* Migrations
-* Session persistence
+* Migraciones
+* Persistencia de sesiones
 
 ---
 
-### Security
+## Seguridad
 
 * JWT
-* Password hashing (bcrypt)
+* Hash de contraseñas con bcrypt
 * Helmet
 * CORS
-* Zod Validation
-* Error Handling
-* Refresh Token Rotation
+* Validación con Zod
+* Manejo de errores
+* Rotación de Refresh Tokens
 
 ---
 
-### Observability
+## Observabilidad
 
-* Pino Logger
+* Logger Pino
 * Morgan
-* Request Logging
-* Centralized Error Handler
+* Registro de peticiones
+* Manejador centralizado de errores
 
 ---
 
-# Technology Stack
+# Stack Tecnológico
 
-| Category             | Technology |
-| -------------------- | ---------- |
-| Language             | TypeScript |
-| Runtime              | Node.js    |
-| Framework            | Express 5  |
-| ORM                  | Prisma     |
-| Database             | PostgreSQL |
-| Authentication       | JWT        |
-| Password Hashing     | bcrypt     |
-| Validation           | Zod        |
-| Dependency Injection | TSyringe   |
-| Logging              | Pino       |
-| API Docs             | Swagger    |
-| Package Manager      | npm        |
+| Categoría                 | Tecnología |
+| ------------------------- | ---------- |
+| Lenguaje                  | TypeScript |
+| Runtime                   | Node.js    |
+| Framework                 | Express 5  |
+| ORM                       | Prisma     |
+| Base de Datos             | PostgreSQL |
+| Autenticación             | JWT        |
+| Hash de Contraseñas       | bcrypt     |
+| Validación                | Zod        |
+| Inyección de Dependencias | TSyringe   |
+| Logging                   | Pino       |
+| Documentación API         | Swagger    |
+| Gestor de Paquetes        | npm        |
 
 ---
 
-# Architecture
+# Arquitectura
 
-The application follows a layered architecture inspired by **Hexagonal Architecture** and **Domain-Driven Design**.
+La aplicación sigue una arquitectura por capas inspirada en **Arquitectura Hexagonal** y **Domain-Driven Design**.
 
 ```text
-                HTTP Request
+                Petición HTTP
                      │
                      ▼
-              Express Routes
+              Rutas Express
                      │
                      ▼
-               Controllers
+              Controladores
                      │
                      ▼
-                Use Cases
+                Casos de Uso
                      │
                      ▼
-              Domain Interfaces
+          Interfaces de Dominio
                      │
       ┌──────────────┴──────────────┐
       ▼                             ▼
- PostgreSQL                    External Services
+ PostgreSQL                    Servicios Externos
    Prisma
 ```
 
-Each layer has a single responsibility.
+Cada capa tiene una única responsabilidad.
 
-Business rules never depend on Express, Prisma, or any external framework.
+Las reglas de negocio nunca dependen de Express, Prisma u otros frameworks externos.
 
 ---
 
-# Project Structure
+# Estructura del Proyecto
 
 ```text
 src/
@@ -215,141 +215,141 @@ prisma/
 docs/
 ```
 
-Every feature is isolated inside its own module.
+Cada funcionalidad está aislada dentro de su propio módulo.
 
-Each module contains:
+Cada módulo contiene:
 
-* Domain
-* Application
-* Infrastructure
+* Dominio
+* Aplicación
+* Infraestructura
 * Interfaces
 
-This keeps the project highly modular and easy to maintain.
+Esto mantiene el proyecto altamente modular y fácil de mantener.
 
 ---
 
-# Authentication Flow
+# Flujo de Autenticación
 
-The authentication process follows modern best practices.
+El proceso de autenticación sigue buenas prácticas modernas.
 
 ```text
-User Login
+Inicio de Sesión
 
 ↓
 
-Validate Credentials
+Validar Credenciales
 
 ↓
 
-Generate Access Token
+Generar Access Token
 
 ↓
 
-Generate Refresh Token
+Generar Refresh Token
 
 ↓
 
-Create Session
+Crear Sesión
 
 ↓
 
-Store Refresh Token in PostgreSQL
+Guardar Refresh Token en PostgreSQL
 
 ↓
 
-Return Tokens
+Devolver Tokens
 ```
 
-When the access token expires:
+Cuando el access token expira:
 
 ```text
 Refresh Token
 
 ↓
 
-Validate JWT
+Validar JWT
 
 ↓
 
-Find Session
+Buscar Sesión
 
 ↓
 
-Verify Session
+Verificar Sesión
 
 ↓
 
-Revoke Previous Session
+Revocar Sesión Anterior
 
 ↓
 
-Generate New Tokens
+Generar Nuevos Tokens
 
 ↓
 
-Store New Session
+Guardar Nueva Sesión
 
 ↓
 
-Return New Tokens
+Devolver Nuevos Tokens
 ```
 
-This process is known as **Refresh Token Rotation** and greatly improves security.
+Este proceso se conoce como **Rotación de Refresh Tokens** y mejora significativamente la seguridad.
 
 ---
 
-# Why This Architecture?
+# ¿Por qué esta Arquitectura?
 
-Every architectural decision solves a specific problem.
+Cada decisión arquitectónica resuelve un problema específico.
 
-| Decision               | Problem Solved                           |
-| ---------------------- | ---------------------------------------- |
-| Hexagonal Architecture | Decouples business logic from frameworks |
-| DDD                    | Keeps business rules organized           |
-| Dependency Injection   | Improves testability                     |
-| Prisma                 | Simplifies database access               |
-| PostgreSQL             | Strong relational consistency            |
-| JWT                    | Stateless authentication                 |
-| Refresh Tokens         | Better user experience                   |
-| Session Persistence    | Allows logout and session revocation     |
-| Zod                    | Runtime validation                       |
-| Pino                   | Structured logging                       |
+| Decisión                  | Problema Resuelto                                |
+| ------------------------- | ------------------------------------------------ |
+| Arquitectura Hexagonal    | Desacopla la lógica de negocio de los frameworks |
+| DDD                       | Mantiene organizadas las reglas de negocio       |
+| Inyección de Dependencias | Mejora la capacidad de realizar pruebas          |
+| Prisma                    | Simplifica el acceso a la base de datos          |
+| PostgreSQL                | Proporciona consistencia relacional sólida       |
+| JWT                       | Autenticación sin estado                         |
+| Refresh Tokens            | Mejor experiencia de usuario                     |
+| Persistencia de Sesiones  | Permite cerrar y revocar sesiones                |
+| Zod                       | Validación en tiempo de ejecución                |
+| Pino                      | Logging estructurado                             |
 
 ---
 
-# 🚀 Getting Started
+# Primeros Pasos
 
-Install dependencies
+Instalar dependencias:
 
 ```bash
 npm install
 ```
 
-Generate Prisma Client
+Generar cliente de Prisma:
 
 ```bash
 npx prisma generate
 ```
 
-Run database migrations
+Ejecutar migraciones de base de datos:
 
 ```bash
 npx prisma migrate dev
 ```
 
-Start development server
+Iniciar servidor de desarrollo:
 
 ```bash
 npm run dev
 ```
 
-Build
+Compilar proyecto:
 
 ```bash
 npm run build
 ```
 
-Run production
+Ejecutar en producción:
 
 ```bash
 npm start
@@ -357,9 +357,9 @@ npm start
 
 ---
 
-# Environment Variables
+# Variables de Entorno
 
-Create a `.env` file.
+Crear un archivo `.env`.
 
 ```env
 DATABASE_URL="postgresql://root:root@localhost:5432/taskflow"
@@ -373,33 +373,33 @@ PORT=3000
 
 ---
 
-# Prisma Commands
+# Comandos de Prisma
 
-Generate Prisma Client
+Generar cliente Prisma:
 
 ```bash
 npx prisma generate
 ```
 
-Create a migration
+Crear una migración:
 
 ```bash
-npx prisma migrate dev --name migration_name
+npx prisma migrate dev --name nombre_migracion
 ```
 
-Deploy migrations
+Aplicar migraciones:
 
 ```bash
 npx prisma migrate deploy
 ```
 
-Open Prisma Studio
+Abrir Prisma Studio:
 
 ```bash
 npx prisma studio
 ```
 
-Reset the database
+Reiniciar la base de datos:
 
 ```bash
 npx prisma migrate reset
@@ -407,11 +407,11 @@ npx prisma migrate reset
 
 ---
 
-# Documentation
+# Documentación
 
-Additional documentation is available inside the **docs** folder.
+La documentación adicional está disponible dentro de la carpeta **docs**.
 
-```
+```text
 docs/
 
 01-Architecture.md
@@ -421,52 +421,50 @@ docs/
 05-Security.md
 06-ProjectStructure.md
 07-DevelopmentJourney.md
-08-Roadmap.md
 ```
 
-Each document explains one aspect of the project in depth.
+Cada documento explica en profundidad un aspecto del proyecto.
 
 ---
 
-# Development Roadmap
+# Hoja de Ruta de Desarrollo
 
-The current authentication system is complete enough for production-like environments.
+El sistema actual de autenticación está completo para entornos similares a producción.
 
-The next milestones are:
+Los próximos objetivos son:
 
-* Workspace Module
-* Projects
-* Boards
-* Tasks
-* Comments
-* Attachments
-* Activity Logs (MongoDB)
-* Kafka Integration
-* Notifications
+* Módulo de Workspaces
+* Proyectos
+* Tableros
+* Tareas
+* Comentarios
+* Archivos adjuntos
+* Registros de actividad (MongoDB)
+* Integración con Kafka
+* Notificaciones
 * Docker
 * GitHub Actions
-* Unit Testing
-* Integration Testing
-* Metrics
+* Pruebas unitarias
+* Pruebas de integración
+* Métricas
 * Prometheus
 * Grafana
 
 ---
 
-# Main Strengths
+# Principales Fortalezas
 
-* Enterprise-inspired architecture
-* Modular design
-* Secure authentication
-* Refresh Token Rotation
-* Persistent Sessions
-* Dependency Injection
-* Ready for Event-Driven Architecture
-* Production-oriented code organization
-* Strong separation of concerns
-* Easy to test and extend
+* Arquitectura inspirada en sistemas empresariales
+* Diseño modular
+* Autenticación segura
+* Rotación de Refresh Tokens
+* Sesiones persistentes
+* Inyección de Dependencias
+* Preparado para arquitectura basada en eventos
+* Organización del código orientada a producción
+* Fuerte separación de responsabilidades
+* Fácil de probar y extender
 
 ---
 
-# License
 
