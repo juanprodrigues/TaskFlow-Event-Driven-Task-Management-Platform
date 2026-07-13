@@ -68,10 +68,3 @@ export class PrismaWorkspaceRepository implements WorkspaceRepository {
     return count > 0;
   }
 }
-
-console.log(
-  Reflect.getMetadata(
-    "design:paramtypes",
-    PrismaWorkspaceRepository
-  )
-);
