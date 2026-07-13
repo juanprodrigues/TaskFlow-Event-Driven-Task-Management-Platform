@@ -15,16 +15,13 @@ export class WorkspaceMemberMapper {
     createdAt: Date;
     updatedAt: Date;
   }): WorkspaceMember {
-    return new WorkspaceMember(
-      {
+        return WorkspaceMember.restore({
+        id: raw.id,
         workspaceId: raw.workspaceId,
         userId: raw.userId,
         role: WorkspaceRole.create(raw.role as WorkspaceRoleType),
         createdAt: raw.createdAt,
-      },
-
-      raw.id,
-    );
+        });
   }
 
   static toPersistence(member: WorkspaceMember) {

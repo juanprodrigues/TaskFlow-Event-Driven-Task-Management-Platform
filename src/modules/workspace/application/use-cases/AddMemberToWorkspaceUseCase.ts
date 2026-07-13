@@ -12,8 +12,10 @@ import { ForbiddenError } from "@/shared/application/error/ForbiddenError";
 import { ConflictError } from "@/shared/application/error/ConflictError";
 import { NotFoundError } from "@/shared/application/error/NotFoundError";
 import { UserRepository } from "@/modules/users/domain/repositories/UserRepository";
-import { WorkspaceRole, WorkspaceRoleType } from "../../domain/value-objects/WorkspaceRole";
-
+import {
+  WorkspaceRole,
+  WorkspaceRoleType,
+} from "../../domain/value-objects/WorkspaceRole";
 
 @injectable()
 export class AddMemberToWorkspaceUseCase {
@@ -76,5 +78,8 @@ export class AddMemberToWorkspaceUseCase {
     await this.workspaceMemberRepository.save(member);
 
     // El evento lo agregaremos en el siguiente paso
+
+
+    await this.dispatcher.dispatchAll(member.pullDomainEvents());
   }
 }
