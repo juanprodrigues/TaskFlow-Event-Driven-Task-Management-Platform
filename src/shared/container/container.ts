@@ -39,6 +39,8 @@ import { InMemoryEventDispatcher } from "../infrastructure/events/InMemoryEventD
 
 import { PrismaClient } from "@prisma/client";
 import { GetWorkspaceByIdUseCase } from "@/modules/workspace/application/use-cases/GetWorkspaceByIdUseCase";
+import { WorkspaceMemberRepository } from "@/modules/workspace/domain/repositories/WorkspaceMemberRepository";
+import { PrismaWorkspaceMemberRepository } from "@/modules/workspace/infrastructure/repositories/PrismaWorkspaceMemberRepository";
 
 
 // =======================
@@ -70,6 +72,11 @@ container.register(
 container.registerSingleton<WorkspaceRepository>(
   "workspaceRepository",
   PrismaWorkspaceRepository,
+);
+
+container.registerSingleton<WorkspaceMemberRepository>(
+"WorkspaceMemberRepository",
+PrismaWorkspaceMemberRepository
 );
 
 // container.registerSingleton(
