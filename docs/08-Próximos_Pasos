@@ -1,0 +1,246 @@
+# Próximos pasos
+
+TaskFlow API continuará evolucionando hasta convertirse en una plataforma completa para la gestión de proyectos.
+
+La arquitectura actual fue diseñada para permitir incorporar nuevas funcionalidades sin necesidad de reorganizar el código existente.
+
+A continuación se describen los próximos objetivos del proyecto.
+
+---
+
+# Estado del proyecto
+
+| Estado | Módulo |
+|---------|--------|
+| ✔ | Arquitectura base |
+| ✔ | PostgreSQL + Prisma |
+| ✔ | Autenticación JWT |
+| ✔ | Refresh Token Rotation |
+| ✔ | Gestión de sesiones |
+| ✔ | Roles (RBAC) |
+| ✔ | Validación con Zod |
+| ✔ | Logging |
+| ✔ | Swagger |
+| ⏳ | Workspaces |
+| ⏳ | Projects |
+| ⏳ | Boards |
+| ⏳ | Tasks |
+| ⏳ | Comments |
+| ⏳ | Attachments |
+| ⏳ | Activity Log |
+| ⏳ | Notifications |
+| ⏳ | Docker |
+| ⏳ | CI/CD |
+| ⏳ | Testing |
+| ⏳ | Observabilidad |
+
+---
+
+# Workspaces
+
+Permitirá que distintos equipos puedan trabajar de forma completamente aislada dentro de la misma aplicación.
+
+Cada Workspace tendrá:
+
+- Miembros.
+- Roles.
+- Configuración propia.
+- Proyectos independientes.
+
+---
+
+# Projects
+
+Los proyectos agruparán el trabajo de cada equipo.
+
+Cada proyecto tendrá:
+
+- Nombre.
+- Descripción.
+- Estado.
+- Propietario.
+- Miembros.
+
+---
+
+# Boards
+
+Cada proyecto podrá contener múltiples tableros.
+
+Ejemplos:
+
+```text
+Backend
+
+Frontend
+
+DevOps
+
+QA
+```
+
+Esto facilitará organizar el trabajo por áreas o equipos.
+
+---
+
+# Tasks
+
+Será el núcleo funcional de la aplicación.
+
+Cada tarea podrá incluir:
+
+- Título.
+- Descripción.
+- Prioridad.
+- Estado.
+- Responsable.
+- Fecha límite.
+- Etiquetas.
+
+---
+
+# Comentarios
+
+Las tareas admitirán conversaciones entre los miembros del equipo.
+
+Cada comentario quedará asociado a una tarea y a un usuario.
+
+Esto permitirá mantener el contexto del trabajo dentro de la plataforma.
+
+---
+
+# Adjuntos
+
+Los usuarios podrán subir archivos relacionados con una tarea.
+
+Ejemplos:
+
+- Documentación.
+- Imágenes.
+- Diagramas.
+- Archivos PDF.
+
+En una versión futura estos archivos podrán almacenarse en servicios como Amazon S3 o MinIO.
+
+---
+
+# Registro de actividad
+
+Además de la información transaccional almacenada en PostgreSQL, el proyecto incorporará un historial de eventos utilizando MongoDB.
+
+Ejemplos de eventos registrados:
+
+```text
+Usuario creó una tarea.
+
+↓
+
+Usuario cambió el estado.
+
+↓
+
+Usuario asignó un responsable.
+
+↓
+
+Usuario eliminó un comentario.
+```
+
+El objetivo es mantener un historial completo de acciones sin afectar el rendimiento de la base de datos principal.
+
+---
+
+# Eventos con Kafka
+
+A medida que el sistema crezca, algunas operaciones dejarán de ejecutarse de forma síncrona.
+
+Kafka permitirá desacoplar procesos como:
+
+- Envío de notificaciones.
+- Registro de auditoría.
+- Generación de correos electrónicos.
+- Procesamiento de eventos.
+- Integraciones con sistemas externos.
+
+De esta forma la API responderá más rápido mientras otros procesos continúan ejecutándose en segundo plano.
+
+---
+
+# Testing
+
+Una de las siguientes etapas consistirá en incorporar pruebas automatizadas.
+
+Se incluirán:
+
+- Unit Tests.
+- Integration Tests.
+- End-to-End Tests.
+
+El objetivo será validar la lógica de negocio de forma independiente de la infraestructura.
+
+---
+
+# Docker
+
+Se añadirá soporte completo para Docker.
+
+Esto permitirá ejecutar el proyecto con una única instrucción.
+
+```bash
+docker compose up
+```
+
+El entorno incluirá:
+
+- API.
+- PostgreSQL.
+- MongoDB.
+- Kafka.
+
+---
+
+# Integración continua
+
+Se configurará un pipeline de GitHub Actions para automatizar:
+
+- Instalación de dependencias.
+- Ejecución de pruebas.
+- Análisis estático.
+- Build del proyecto.
+
+Esto garantizará que cada cambio mantenga la calidad del código.
+
+---
+
+# Observabilidad
+
+La aplicación incorporará herramientas para monitorear su comportamiento en tiempo real.
+
+Entre ellas:
+
+- Prometheus.
+- Grafana.
+- Métricas personalizadas.
+- Health Checks.
+- Trazabilidad de peticiones.
+
+Esto facilitará detectar problemas antes de que impacten a los usuarios.
+
+---
+
+# Objetivo final
+
+El propósito de este proyecto no es únicamente construir una API funcional.
+
+La idea es desarrollar una plataforma que sirva como referencia de buenas prácticas en desarrollo backend utilizando Node.js y TypeScript.
+
+Cada nueva funcionalidad buscará mantener los principios que guiaron el proyecto desde el inicio:
+
+- Código desacoplado.
+- Arquitectura modular.
+- Escalabilidad.
+- Seguridad.
+- Mantenibilidad.
+- Facilidad para realizar pruebas.
+
+El desarrollo continuará de forma incremental, incorporando nuevas capacidades sin comprometer la simplicidad y la organización alcanzadas hasta el momento.
