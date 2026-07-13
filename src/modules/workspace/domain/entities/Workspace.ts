@@ -1,12 +1,13 @@
 import { randomUUID } from "node:crypto";
 
 import { AggregateRoot } from "@/shared/domain/events/AggregateRoot";
-import { WorkspaceCreatedEvent } from "../events/WorkspaceCreatedEvent";
+import { WorkspaceCreatedEvent } from "@/shared/domain/events/WorkspaceCreatedEvent";
+import { WorkspaceName } from "../value-objects/WorkspaceName";
 
 export class Workspace extends AggregateRoot {
   private constructor(
     public readonly id: string,
-    public name: string,
+    public name: WorkspaceName,
     public description: string | null,
     public readonly ownerId: string,
     public readonly createdAt: Date,
@@ -21,7 +22,7 @@ export class Workspace extends AggregateRoot {
   }): Workspace {
     const workspace = new Workspace(
       randomUUID(),
-      params.name,
+      WorkspaceName.create(params.name),
       params.description ?? null,
       params.ownerId,
       new Date(),
@@ -31,7 +32,7 @@ export class Workspace extends AggregateRoot {
       new WorkspaceCreatedEvent(
         workspace.id,
         workspace.ownerId,
-        workspace.name,
+        WorkspaceName.name,
       ),
     );
 
