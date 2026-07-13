@@ -1,7 +1,6 @@
 import { DomainEvent } from "./DomainEvent";
 
 export abstract class AggregateRoot {
-
   private readonly domainEvents: DomainEvent[] = [];
 
   protected addDomainEvent(event: DomainEvent): void {
@@ -11,9 +10,16 @@ export abstract class AggregateRoot {
   public pullDomainEvents(): DomainEvent[] {
     const events = [...this.domainEvents];
 
-    this.domainEvents.length = 0;
+    this.clearDomainEvents();
 
     return events;
   }
 
+  public clearDomainEvents(): void {
+    this.domainEvents.length = 0;
+  }
+
+  public getDomainEvents(): readonly DomainEvent[] {
+    return [...this.domainEvents];
+  }
 }
