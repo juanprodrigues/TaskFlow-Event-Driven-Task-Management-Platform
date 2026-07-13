@@ -1,7 +1,5 @@
-// This is your Prisma schema file,
+// This is your Prisma schema file
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
   provider = "prisma-client-js"
@@ -13,56 +11,79 @@ datasource db {
 }
 
 model User {
-
-  id String @id @default(uuid())
-
-  name String
-
-  email String @unique
-
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
   password String
 
+  // Rol global de la aplicación
   role Role @default(USER)
 
   createdAt DateTime @default(now())
 
   sessions Session[]
 
+  // Workspaces creados por este usuario
+  ownedWorkspaces Workspace[] @relation("WorkspaceOwner")
+
+  // Workspaces donde participa
+  workspaceMemberships WorkspaceMember[]
 }
 
 model Session {
-
-  id String @id @default(uuid())
-
-  refreshToken String @unique
-
-  expiresAt DateTime
-
-  revoked Boolean @default(false)
-
-  createdAt DateTime @default(now())
+  id           String   @id @default(uuid())
+  refreshToken String   @unique
+  expiresAt    DateTime
+  revoked      Boolean  @default(false)
+  createdAt    DateTime @default(now())
 
   userId String
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
 enum Role {
-
   ADMIN
-
   MANAGER
-
   USER
-
 }
 
 model Workspace {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   description String?
-  ownerId     String
-  createdAt   DateTime @default(now())
+
+  ownerId String
+  owner   User   @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+
+  members WorkspaceMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([ownerId])
+}
+
+model WorkspaceMember {
+  id String @id @default(uuid())
+
+  workspaceId String
+  userId      String
+
+  role WorkspaceRole @default(MEMBER)
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([workspaceId, userId])
+  @@index([workspaceId])
+  @@index([userId])
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
 }
