@@ -15,8 +15,8 @@ import { WorkspaceMapper } from "../mappers/WorkspaceMapper";
 @injectable()
 export class CreateWorkspaceUseCase {
   constructor(
-    @inject("WorkspaceRepository")
-    private readonly repository: WorkspaceRepository,
+    @inject("workspaceRepository")
+    private readonly workspaceRepository: WorkspaceRepository,
 
     @inject("EventDispatcher")
     private readonly dispatcher: EventDispatcher,
@@ -25,7 +25,7 @@ export class CreateWorkspaceUseCase {
   async execute(data: CreateWorkspaceDTO): Promise<CreateWorkspaceResponseDTO> {
     const workspace = Workspace.create(data);
 
-    await this.repository.save(workspace);
+    await this.workspaceRepository.save(workspace);
 
     await this.dispatcher.dispatchAll(workspace.pullDomainEvents());
     // Primero persistimos.

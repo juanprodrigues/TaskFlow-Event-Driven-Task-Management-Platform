@@ -1,4 +1,4 @@
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -9,6 +9,7 @@ import { Workspace } from "../../domain/entities/Workspace";
 @injectable()
 export class PrismaWorkspaceRepository implements WorkspaceRepository {
   constructor(
+    @inject(PrismaClient)
     private readonly prisma: PrismaClient
     ) {}
 
@@ -67,3 +68,10 @@ export class PrismaWorkspaceRepository implements WorkspaceRepository {
     return count > 0;
   }
 }
+
+console.log(
+  Reflect.getMetadata(
+    "design:paramtypes",
+    PrismaWorkspaceRepository
+  )
+);

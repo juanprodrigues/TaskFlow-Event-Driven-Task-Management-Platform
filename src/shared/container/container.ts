@@ -30,7 +30,14 @@ import { HealthController } from "@/modules/health/interfaces/controllers/Health
 import { TokenService } from "@/modules/auth/domain/services/TokenService";
 import { JwtTokenService } from "@/modules/auth/domain/services/JwtTokenService";
 import { BcryptHashService } from "@/modules/auth/domain/services/BcryptHashService";
+import { PrismaWorkspaceRepository } from "@/modules/workspace/infrastructure/repositories/PrismaWorkspaceRepository";
+import { WorkspaceRepository } from "@/modules/workspace/domain/repositories/WorkspaceRepository";
+import { WorkspaceController } from "@/modules/workspace/interfaces/controllers/WorkspaceController";
+import { CreateWorkspaceUseCase } from "@/modules/workspace/application/use-cases/CreateWorkspaceUseCase";
+import { EventDispatcher } from "../domain/events/EventDispatcher";
+import { InMemoryEventDispatcher } from "../infrastructure/events/InMemoryEventDispatcher";
 
+import { PrismaClient } from "@prisma/client";
 
 
 // =======================
@@ -47,6 +54,27 @@ container.registerSingleton<SessionRepository>(
   PrismaSessionRepository,
 );
 
+container.register(
+  PrismaClient,
+  {
+    useValue: new PrismaClient()
+  }
+);
+
+// container.registerSingleton(
+//   "workspaceRepository",
+//   PrismaWorkspaceRepository
+// );
+
+container.registerSingleton<WorkspaceRepository>(
+  "workspaceRepository",
+  PrismaWorkspaceRepository,
+);
+
+// container.registerSingleton(
+//   PrismaClient,
+//   PrismaClient
+// );
 
 // =======================
 // SERVICES
@@ -121,6 +149,11 @@ container.registerSingleton(
   DeleteUserUseCase,
 );
 
+container.registerSingleton(
+  "createWorkspaceUseCase",
+  CreateWorkspaceUseCase,
+);
+
 
 // =======================
 // CONTROLLERS
@@ -138,5 +171,14 @@ container.registerSingleton(
   HealthController,
 );
 
+container.registerSingleton(
+  WorkspaceController,
+);
+
+
+container.registerSingleton<EventDispatcher>(
+  "EventDispatcher",
+  InMemoryEventDispatcher
+);
 
 export { container };
