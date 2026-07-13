@@ -41,6 +41,7 @@ import { PrismaClient } from "@prisma/client";
 import { GetWorkspaceByIdUseCase } from "@/modules/workspace/application/use-cases/GetWorkspaceByIdUseCase";
 import { WorkspaceMemberRepository } from "@/modules/workspace/domain/repositories/WorkspaceMemberRepository";
 import { PrismaWorkspaceMemberRepository } from "@/modules/workspace/infrastructure/repositories/PrismaWorkspaceMemberRepository";
+import { AddMemberToWorkspaceUseCase } from "@/modules/workspace/application/use-cases/AddMemberToWorkspaceUseCase";
 
 
 // =======================
@@ -75,7 +76,7 @@ container.registerSingleton<WorkspaceRepository>(
 );
 
 container.registerSingleton<WorkspaceMemberRepository>(
-"WorkspaceMemberRepository",
+"workspaceMemberRepository",
 PrismaWorkspaceMemberRepository
 );
 
@@ -192,5 +193,11 @@ container.registerSingleton<EventDispatcher>(
   "EventDispatcher",
   InMemoryEventDispatcher
 );
+
+container.registerSingleton(
+  "AddMemberToWorkspaceUseCase",
+  AddMemberToWorkspaceUseCase,
+);
+
 
 export { container };

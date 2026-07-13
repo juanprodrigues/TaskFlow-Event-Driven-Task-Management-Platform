@@ -68,4 +68,5 @@ export class PrismaWorkspaceRepository implements WorkspaceRepository {
 
     return count > 0;
   }
+
 }

@@ -25,8 +25,7 @@ export class AddMemberToWorkspaceUseCase {
 
     @inject("workspaceMemberRepository")
     private readonly workspaceMemberRepository: WorkspaceMemberRepository,
-
-    @inject("wserRepository")
+    @inject("userRepository")
     private readonly userRepository: UserRepository,
 
     @inject("EventDispatcher")
@@ -45,9 +44,8 @@ export class AddMemberToWorkspaceUseCase {
     if (!invitedUser) {
       throw new NotFoundError("User not found");
     }
-
-    const requester =
-      await this.workspaceMemberRepository.findByWorkspaceAndUser(
+        const requester =
+        await this.workspaceMemberRepository.findByWorkspaceAndUser(
         dto.workspaceId,
         dto.requesterId,
       );

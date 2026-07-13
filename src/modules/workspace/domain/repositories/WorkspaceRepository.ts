@@ -8,4 +8,5 @@ export interface WorkspaceRepository {
   findByOwnerId(ownerId: string): Promise<Workspace[]>;
 
   exists(id: string): Promise<boolean>;
+
 }
