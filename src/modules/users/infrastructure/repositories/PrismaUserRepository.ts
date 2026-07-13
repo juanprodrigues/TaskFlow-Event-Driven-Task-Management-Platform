@@ -1,8 +1,11 @@
 import { User } from "../../domain/entities/User";
 import { UserRepository } from "../../domain/repositories/UserRepository";
 import { prisma } from "../../../../shared/database/prisma";
+import { UserMapper } from "../../application/mappers/UserMapper";
 
 export class PrismaUserRepository implements UserRepository {
+
+
 
     async create(user: User): Promise<User> {
 
@@ -20,6 +23,7 @@ export class PrismaUserRepository implements UserRepository {
             createdUser.name,
             createdUser.email,
             createdUser.password,
+            UserMapper.mapPrismaRoleToDomain(createdUser.role),
             createdUser.createdAt
         );
     }
@@ -39,6 +43,7 @@ export class PrismaUserRepository implements UserRepository {
             user.name,
             user.email,
             user.password,
+            UserMapper.mapPrismaRoleToDomain(user.role),
             user.createdAt
         );
     }
@@ -58,6 +63,7 @@ export class PrismaUserRepository implements UserRepository {
             user.name,
             user.email,
             user.password,
+            UserMapper.mapPrismaRoleToDomain(user.role),
             user.createdAt
         );
     }
@@ -72,6 +78,7 @@ export class PrismaUserRepository implements UserRepository {
                 user.name,
                 user.email,
                 user.password,
+                UserMapper.mapPrismaRoleToDomain(user.role),
                 user.createdAt
             )
         );
@@ -93,6 +100,7 @@ export class PrismaUserRepository implements UserRepository {
             updated.name,
             updated.email,
             updated.password,
+            UserMapper.mapPrismaRoleToDomain(updated.role),
             updated.createdAt
         );
     }

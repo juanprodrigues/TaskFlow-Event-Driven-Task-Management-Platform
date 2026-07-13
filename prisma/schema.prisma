@@ -14,17 +14,20 @@ datasource db {
 
 model User {
 
-  id        String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  name      String
+  name String
 
-  email     String   @unique
+  email String @unique
 
-  password  String
+  password String
+
+  role Role @default(USER)
 
   createdAt DateTime @default(now())
 
-  sessions  Session[]
+  sessions Session[]
+
 }
 
 model Session {
@@ -42,5 +45,16 @@ model Session {
   userId String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+
+enum Role {
+
+  ADMIN
+
+  MANAGER
+
+  USER
 
 }

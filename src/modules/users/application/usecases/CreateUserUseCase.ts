@@ -24,6 +24,7 @@ export class CreateUserUseCase {
             dto.name,
             dto.email,
             dto.password,
+            dto.role,
             new Date()
         );
 

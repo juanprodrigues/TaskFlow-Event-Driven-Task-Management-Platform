@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { Role } from "../enums/Role";
 
 export class User {
 
@@ -7,13 +8,15 @@ export class User {
         public name: string,
         public email: string,
         public password: string,
+        public role: Role,
         public readonly createdAt: Date
     ) {}
 
     static create(
         name: string,
         email: string,
-        password: string
+        password: string,
+        role: Role
     ): User {
 
         return new User(
@@ -21,6 +24,7 @@ export class User {
             name,
             email,
             password,
+            role,
             new Date()
         );
 

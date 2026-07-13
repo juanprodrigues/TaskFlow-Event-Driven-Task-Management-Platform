@@ -1,3 +1,5 @@
+import { Role } from "@/modules/users/domain/enums/Role";
+
 export interface RegisterDto {
 
     name: string;
@@ -6,4 +8,5 @@ export interface RegisterDto {
 
     password: string;
 
+    role: Role;
 }

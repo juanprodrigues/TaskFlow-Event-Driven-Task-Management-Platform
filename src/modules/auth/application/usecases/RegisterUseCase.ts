@@ -22,14 +22,15 @@ export class RegisterUseCase {
         if (existingUser) {
             throw new ConflictError("Email already registered");
         }
-
+        
         const hashedPassword =
             await this.hashService.hash(dto.password);
 
         const user = User.create(
             dto.name,
             dto.email,
-            hashedPassword
+            hashedPassword,
+            dto.role
         );
 
         return this.userRepository.create(user);
