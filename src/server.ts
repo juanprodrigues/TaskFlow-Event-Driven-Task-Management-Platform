@@ -1,3 +1,6 @@
+import "reflect-metadata";
+import "./shared/container";
+
 import { app } from "./app";
 import { serverConfig } from "@shared/config";
 import { logger } from "@shared/logger/logger";

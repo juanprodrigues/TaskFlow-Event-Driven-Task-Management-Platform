@@ -6,6 +6,7 @@ import { ListUsersUseCase } from "../../application/usecases/ListUsersUseCase";
 import { UpdateUserUseCase } from "../../application/usecases/UpdateUserUseCase";
 import { DeleteUserUseCase } from "../../application/usecases/DeleteUserUseCase";
 import { ApiResponse } from "@/shared/responses/ApiResponse";
+import { inject, injectable } from "tsyringe";
 // lo idea es controllers
 
 // CreateUserController.ts
@@ -17,12 +18,18 @@ import { ApiResponse } from "@/shared/responses/ApiResponse";
 // DeleteUserController.ts
 
 // FindUserByIdController.ts
+@injectable()
 export class UserController {
   constructor(
+    @inject("createUserUseCase")
     private readonly createUserUseCase: CreateUserUseCase,
+    @inject("findUserByIdUseCase")
     private readonly findUserByIdUseCase: FindUserByIdUseCase,
+    @inject("listUsersUseCase")
     private readonly listUsersUseCase: ListUsersUseCase,
+    @inject("updateUserUseCase")
     private readonly updateUserUseCase: UpdateUserUseCase,
+    @inject("deleteUserUseCase")
     private readonly deleteUserUseCase: DeleteUserUseCase,
   ) {}
 

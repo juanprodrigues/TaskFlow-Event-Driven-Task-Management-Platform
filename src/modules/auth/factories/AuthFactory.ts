@@ -8,7 +8,7 @@ import { PrismaSessionRepository } from "../infrastructure/repositories/PrismaSe
 import { RefreshTokenUseCase } from "../application/usecases/RefreshTokenUseCase";
 import { LogoutAllUseCase } from "../application/usecases/LogoutAllUseCase";
 import { LogoutUseCase } from "../application/usecases/LogoutUseCase";
-
+//Deprecated
 export class AuthFactory {
   static createController() {
     const userRepository = new PrismaUserRepository();

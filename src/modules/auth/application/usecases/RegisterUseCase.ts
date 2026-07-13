@@ -3,11 +3,14 @@ import { User } from "../../../users/domain/entities/User";
 import { UserRepository } from "../../../users/domain/repositories/UserRepository";
 import { RegisterDto } from "../dto/RegisterDto";
 import { HashService } from "../../domain/services/HashService";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export class RegisterUseCase {
-
     constructor(
+        @inject("userRepository")
         private readonly userRepository: UserRepository,
+        @inject("hashService")
         private readonly hashService: HashService
     ) {}
 

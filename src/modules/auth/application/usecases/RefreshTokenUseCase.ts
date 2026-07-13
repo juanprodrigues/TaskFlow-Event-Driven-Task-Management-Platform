@@ -10,11 +10,16 @@ import { RefreshTokenDto } from "../dto/RefreshTokenDto";
 
 import { AuthResponseDto } from "../dto/AuthResponseDto";
 import { UserRepository } from "@/modules/users/domain/repositories/UserRepository";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export class RefreshTokenUseCase {
   constructor(
+     @inject("userRepository")
     private readonly userRepository: UserRepository,
+     @inject("sessionRepository")
     private readonly sessionRepository: SessionRepository,
+     @inject("tokenService")
     private readonly tokenService: TokenService,
   ) {}
 

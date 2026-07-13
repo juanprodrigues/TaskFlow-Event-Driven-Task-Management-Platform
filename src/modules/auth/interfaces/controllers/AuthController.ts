@@ -7,19 +7,32 @@ import { ApiResponse } from "../../../../shared/responses/ApiResponse";
 import { RefreshTokenUseCase } from "../../application/usecases/RefreshTokenUseCase";
 import { LogoutUseCase } from "../../application/usecases/LogoutUseCase";
 import { LogoutAllUseCase } from "../../application/usecases/LogoutAllUseCase";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export class AuthController {
   constructor(
+    @inject("registerUseCase")
     private readonly registerUseCase: RegisterUseCase,
+    @inject("loginUseCase")
     private readonly loginUseCase: LoginUseCase,
+    @inject("refreshTokenUseCase")
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
+    @inject("logoutUseCase")
     private readonly logoutUseCase: LogoutUseCase,
+    @inject("logoutAllUseCase")
     private readonly logoutAllUseCase: LogoutAllUseCase,
   ) {
-    this.logoutUseCase = logoutUseCase;
-    this.logoutAllUseCase = logoutAllUseCase;
+    // this.logoutUseCase = logoutUseCase;
+    // this.logoutAllUseCase = logoutAllUseCase;
   }
 
+//   Estas líneas no son necesarias:
+
+// this.logoutUseCase = logoutUseCase;
+// this.logoutAllUseCase = logoutAllUseCase;
+
+// Como ya usas parámetros con private readonly, TypeScript hace esa asignación automáticamente.
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const user = await this.registerUseCase.execute(req.body);

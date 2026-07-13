@@ -1,9 +1,12 @@
 import { UserRepository } from "../../domain/repositories/UserRepository";
 import { UpdateUserDto } from "../dto/UpdateUserDto";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export class UpdateUserUseCase {
 
     constructor(
+        @inject("repository")
         private readonly repository: UserRepository
     ) {}
 

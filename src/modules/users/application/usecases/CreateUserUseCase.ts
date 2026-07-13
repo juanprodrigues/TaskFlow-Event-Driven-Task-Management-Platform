@@ -1,10 +1,13 @@
+import { inject, injectable } from "tsyringe";
 import { User } from "../../domain/entities/User";
 import { UserRepository } from "../../domain/repositories/UserRepository";
 import { CreateUserDto } from "../dto/CreateUserDto";
 
+@injectable()
 export class CreateUserUseCase {
 
     constructor(
+        @inject("userRepository")
         private readonly userRepository: UserRepository
     ) {}
 
