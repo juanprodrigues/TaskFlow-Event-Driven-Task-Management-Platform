@@ -42,6 +42,8 @@ import { GetWorkspaceByIdUseCase } from "@/modules/workspace/application/use-cas
 import { WorkspaceMemberRepository } from "@/modules/workspace/domain/repositories/WorkspaceMemberRepository";
 import { PrismaWorkspaceMemberRepository } from "@/modules/workspace/infrastructure/repositories/PrismaWorkspaceMemberRepository";
 import { AddMemberToWorkspaceUseCase } from "@/modules/workspace/application/use-cases/AddMemberToWorkspaceUseCase";
+import { ProjectRepository } from "@/modules/project/domain/repositories/ProjectRepository";
+import { PrismaProjectRepository } from "@/modules/project/infrastructure/repositories/PrismaProjectRepository";
 
 
 // =======================
@@ -73,6 +75,12 @@ container.register(
 container.registerSingleton<WorkspaceRepository>(
   "workspaceRepository",
   PrismaWorkspaceRepository,
+);
+
+
+container.registerSingleton<ProjectRepository>(
+  "projectRepository",
+  PrismaProjectRepository,
 );
 
 container.registerSingleton<WorkspaceMemberRepository>(
