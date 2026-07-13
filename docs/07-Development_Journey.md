@@ -8,7 +8,7 @@ Cada mejora incorporada resolvió una limitación de la versión anterior.
 
 ---
 
-# El punto de partida
+## El punto de partida
 
 El proyecto comenzó con una API mínima utilizando:
 
@@ -21,7 +21,7 @@ En esta etapa el objetivo era únicamente disponer de una base sólida sobre la 
 
 ---
 
-# Organización del proyecto
+## Organización del proyecto
 
 A medida que el código comenzó a crecer surgió la necesidad de organizarlo.
 
@@ -43,7 +43,7 @@ Esto permite trabajar sobre un módulo sin afectar al resto de la aplicación.
 
 ---
 
-# Arquitectura
+## Arquitectura
 
 Una vez organizada la estructura surgió una nueva necesidad.
 
@@ -59,7 +59,7 @@ De esta forma las reglas de negocio quedaron aisladas de la infraestructura.
 
 ---
 
-# Validación
+## Validación
 
 Las primeras versiones recibían directamente los datos enviados por el cliente.
 
@@ -83,7 +83,7 @@ Ahora todas las entradas se validan antes de llegar a la lógica de negocio.
 
 ---
 
-# Autenticación
+## Autenticación
 
 El siguiente paso consistió en implementar un sistema de autenticación.
 
@@ -107,7 +107,7 @@ No existía una forma sencilla de cerrar sesión.
 
 ---
 
-# Refresh Tokens
+## Refresh Tokens
 
 Para resolver este problema se incorporaron Refresh Tokens.
 
@@ -133,7 +133,7 @@ La experiencia de usuario mejoró considerablemente.
 
 ---
 
-# Persistencia de sesiones
+## Persistencia de sesiones
 
 El siguiente problema apareció casi inmediatamente.
 
@@ -161,7 +161,7 @@ A partir de ese momento fue posible:
 
 ---
 
-# Refresh Token Rotation
+## Refresh Token Rotation
 
 Posteriormente se incorporó una mejora adicional.
 
@@ -187,7 +187,7 @@ Esta estrategia reduce considerablemente el riesgo asociado al robo de tokens.
 
 ---
 
-# Roles
+## Roles
 
 Una vez resuelta la autenticación, el siguiente paso fue la autorización.
 
@@ -205,7 +205,7 @@ Esto permitirá restringir determinadas operaciones según el perfil del usuario
 
 ---
 
-# Dependency Injection
+## Dependency Injection
 
 A medida que aumentó el número de casos de uso comenzó a resultar incómodo crear manualmente cada dependencia.
 
@@ -227,7 +227,7 @@ Con esto la creación de objetos quedó completamente desacoplada del resto de l
 
 ---
 
-# Resultado actual
+## Resultado actual
 
 Actualmente el proyecto cuenta con:
 
@@ -250,7 +250,7 @@ Todo ello construido de forma incremental, manteniendo siempre el código organi
 
 ---
 
-# Lo que viene
+## Lo que viene
 
 La siguiente etapa del proyecto estará enfocada en el dominio de negocio.
 
@@ -308,10 +308,12 @@ El objetivo es continuar evolucionando la arquitectura sin perder la simplicidad
 
 ---
 
-# Conclusión
+### Conclusión
 
 Cada tecnología incorporada durante el desarrollo respondió a una necesidad concreta.
 
 No se añadieron herramientas únicamente por utilizarlas, sino porque resolvían un problema real dentro del proyecto.
 
 Este enfoque permitió construir una base sólida, fácil de mantener y preparada para evolucionar hacia un sistema mucho más completo.
+
+---
