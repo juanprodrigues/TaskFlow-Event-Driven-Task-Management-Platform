@@ -18,6 +18,9 @@
     "strict": true,
     "skipLibCheck": true,
 
+    //borrar para el dist
+    "ignoreDeprecations": "6.0",
+
     "experimentalDecorators": true,
 
     "emitDecoratorMetadata": true

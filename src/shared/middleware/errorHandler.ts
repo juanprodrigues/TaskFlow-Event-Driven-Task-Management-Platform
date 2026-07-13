@@ -26,7 +26,8 @@ export function errorHandler(
 
         success: false,
 
-        message: "Internal Server Error",
+        // message: "Internal Server Error",
+        message: error,
 
         statusCode: 500
 

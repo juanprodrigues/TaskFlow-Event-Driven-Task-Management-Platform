@@ -5,13 +5,14 @@ import { PrismaClient } from "@prisma/client";
 import { WorkspaceRepository } from "../../domain/repositories/WorkspaceRepository";
 
 import { Workspace } from "../../domain/entities/Workspace";
+import { NotFoundError } from "@/shared/errors";
 
 @injectable()
 export class PrismaWorkspaceRepository implements WorkspaceRepository {
   constructor(
     @inject(PrismaClient)
-    private readonly prisma: PrismaClient
-    ) {}
+    private readonly prisma: PrismaClient,
+  ) {}
 
   async save(workspace: Workspace): Promise<void> {
     await this.prisma.workspace.upsert({
@@ -36,17 +37,17 @@ export class PrismaWorkspaceRepository implements WorkspaceRepository {
   }
 
   async findById(id: string): Promise<Workspace | null> {
-    const data = await this.prisma.workspace.findUnique({
+    const workspace = await this.prisma.workspace.findUnique({
       where: {
         id,
       },
     });
 
-    if (!data) {
-      return null;
+    if (!workspace) {
+      throw new NotFoundError("Workspace not found");
     }
 
-    return Workspace.restore(data);
+    return Workspace.restore(workspace);
   }
   async findByOwnerId(ownerId: string): Promise<Workspace[]> {
     const workspaces = await this.prisma.workspace.findMany({
