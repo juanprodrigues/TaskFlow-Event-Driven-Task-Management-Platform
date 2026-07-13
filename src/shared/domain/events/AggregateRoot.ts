@@ -1,7 +1,12 @@
+import { Entity } from "../entities/Entity";
 import { DomainEvent } from "./DomainEvent";
 
-export abstract class AggregateRoot {
+export abstract class AggregateRoot<T> extends Entity<T> {
   private readonly domainEvents: DomainEvent[] = [];
+
+  protected constructor(props: T, id: string) {
+    super(props, id);
+  }
 
   protected addDomainEvent(event: DomainEvent): void {
     this.domainEvents.push(event);
@@ -10,16 +15,8 @@ export abstract class AggregateRoot {
   public pullDomainEvents(): DomainEvent[] {
     const events = [...this.domainEvents];
 
-    this.clearDomainEvents();
+    this.domainEvents.length = 0;
 
     return events;
-  }
-
-  public clearDomainEvents(): void {
-    this.domainEvents.length = 0;
-  }
-
-  public getDomainEvents(): readonly DomainEvent[] {
-    return [...this.domainEvents];
   }
 }
