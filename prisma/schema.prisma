@@ -58,3 +58,11 @@ enum Role {
   USER
 
 }
+
+model Workspace {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  ownerId     String
+  createdAt   DateTime @default(now())
+}
