@@ -8,7 +8,7 @@ import { Workspace } from "../../domain/entities/Workspace";
 
 import { CreateWorkspaceDTO } from "../dto/CreateWorkspaceDTO";
 
-import { CreateWorkspaceResponseDTO } from "../dto/CreateWorkspaceResponseDTO";
+import { WorkspaceResponseDTO } from "../dto/WorkspaceResponseDTO";
 
 import { WorkspaceMapper } from "../mappers/WorkspaceMapper";
 //unica responsabilidad Orquestar el caso de negocio.
@@ -22,7 +22,7 @@ export class CreateWorkspaceUseCase {
     private readonly dispatcher: EventDispatcher,
   ) {}
 
-  async execute(data: CreateWorkspaceDTO): Promise<CreateWorkspaceResponseDTO> {
+  async execute(data: CreateWorkspaceDTO): Promise<WorkspaceResponseDTO> {
     const workspace = Workspace.create(data);
 
     await this.workspaceRepository.save(workspace);

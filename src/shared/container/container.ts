@@ -38,6 +38,7 @@ import { EventDispatcher } from "../domain/events/EventDispatcher";
 import { InMemoryEventDispatcher } from "../infrastructure/events/InMemoryEventDispatcher";
 
 import { PrismaClient } from "@prisma/client";
+import { GetWorkspaceByIdUseCase } from "@/modules/workspace/application/use-cases/GetWorkspaceByIdUseCase";
 
 
 // =======================
@@ -154,6 +155,10 @@ container.registerSingleton(
   CreateWorkspaceUseCase,
 );
 
+container.registerSingleton(
+  "getWorkspaceByIdUseCase",
+  GetWorkspaceByIdUseCase,
+)
 
 // =======================
 // CONTROLLERS

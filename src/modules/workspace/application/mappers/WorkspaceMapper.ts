@@ -1,9 +1,9 @@
 import { Workspace } from "../../domain/entities/Workspace";
 
-import { CreateWorkspaceResponseDTO } from "../dto/CreateWorkspaceResponseDTO";
+import { WorkspaceResponseDTO } from "../dto/WorkspaceResponseDTO";
 
 export class WorkspaceMapper {
-  static toResponse(workspace: Workspace): CreateWorkspaceResponseDTO {
+  static toResponse(workspace: Workspace): WorkspaceResponseDTO {
     const props = workspace.getProps();
 
     return {
